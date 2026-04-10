@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NutriSense — AI-powered nutritional intelligence that goes beyond calorie counting. Gamify your health with real-time biometric syncing, predictive grocery mapping, and a social food community." />
+  <title>NutriSense — Nutritional Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ═══════════════════════════════════ SIDEBAR ═══════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark">N</div>
+        <span class="logo-text">NutriSense<em>.</em></span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main Navigation">
+        <button class="nav-btn active" data-view="dashboard" id="nav-dashboard">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-btn" data-view="foodlog" id="nav-foodlog">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+          <span>Food Log</span>
+        </button>
+        <button class="nav-btn" data-view="grocery" id="nav-grocery">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>Grocery Map</span>
+        </button>
+        <button class="nav-btn" data-view="fridge" id="nav-fridge">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="8" y1="14" x2="8" y2="18"/></svg>
+          <span>Social Fridge</span>
+        </button>
+        <button class="nav-btn" data-view="badges" id="nav-badges">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+          <span>Achievements</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-user" id="sidebar-user">
+        <div class="user-avatar" id="user-avatar">P</div>
+        <div class="user-meta">
+          <span class="user-name" id="user-name">Priya</span>
+          <span class="user-tier" id="user-tier">Pro Member</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════════════════════ MAIN ═══════════════════════════════════ -->
+    <main class="main-content" id="main-content">
+
+      <!-- Top bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2 class="view-title" id="view-title">Dashboard</h2>
+          <span class="date-chip" id="topbar-date">Today</span>
+        </div>
+        <div class="topbar-right">
+          <button class="icon-btn" id="voice-log-btn" title="Voice Log a Meal">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <button class="icon-btn nudge-trigger" id="nudge-trigger-btn" title="View Context Nudge">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="nudge-dot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ─── NUDGE MODAL ─── -->
+      <div class="modal-overlay hidden" id="nudge-modal" role="dialog" aria-modal="true" aria-labelledby="nudge-title">
+        <div class="modal-card nudge-modal-card">
+          <div class="nudge-header">
+            <div class="nudge-time-badge" id="nudge-time">3:00 PM</div>
+            <span class="pill pill-jade">Action Recommended</span>
+          </div>
+          <h2 id="nudge-title" class="nudge-headline"></h2>
+          <p class="nudge-sub" id="nudge-sub"></p>
+          <div class="nudge-options-list" id="nudge-options"></div>
+          <button class="btn btn-ghost full-width mt-3" id="nudge-dismiss">Dismiss</button>
+        </div>
+      </div>
+
+      <!-- ─── VOICE LOG MODAL ─── -->
+      <div class="modal-overlay hidden" id="voice-modal" role="dialog" aria-modal="true">
+        <div class="modal-card voice-modal-card">
+          <h2>Voice Log a Meal</h2>
+          <p class="muted mt-1">Speak or type what you ate and NutriSense will parse the nutritional data instantly.</p>
+          <div class="voice-indicator" id="voice-indicator">
+            <div class="voice-ring"></div>
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+          </div>
+          <input type="text" id="voice-input" class="text-input" placeholder='e.g. "2 scrambled eggs with spinach and feta"' />
+          <div class="voice-parsed hidden" id="voice-parsed">
+            <p class="pill pill-jade" style="display:inline-block">✓ Parsed — tap Confirm to log</p>
+            <p id="voice-parsed-text" class="mt-1"></p>
+          </div>
+          <div class="modal-actions mt-3">
+            <button class="btn btn-primary" id="voice-confirm">Confirm &amp; Log</button>
+            <button class="btn btn-ghost" id="voice-dismiss">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════ VIEW: DASHBOARD ════════════════════ -->
+      <section class="view active" id="view-dashboard">
+        <div class="dashboard-grid">
+
+          <!-- NQS Score Card (tall) -->
+          <div class="card card-tall nqs-card" id="nqs-card">
+            <div class="card-label">Nutritional Quality Score</div>
+            <div class="nqs-ring-wrap">
+              <svg class="nqs-ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                <circle class="ring-fill" id="nqs-ring-fill" cx="60" cy="60" r="52" stroke-dasharray="0 327"/>
+              </svg>
+              <div class="nqs-center">
+                <span class="nqs-value" id="nqs-value">—</span>
+                <span class="nqs-label">/ 100</span>
+              </div>
+            </div>
+            <div class="nqs-delta-row">
+              <span class="delta-chip positive" id="nqs-delta">+0</span>
+              <span class="muted">vs yesterday</span>
+            </div>
+            <div class="nqs-week-chart" id="nqs-week-chart"></div>
+            <p class="card-caption" id="nqs-caption">Loading insights...</p>
+          </div>
+
+          <!-- Streak Card -->
+          <div class="card streak-card" id="streak-card">
+            <div class="card-label">Current Streak</div>
+            <div class="streak-main">
+              <span class="streak-icon">🔥</span>
+              <span class="streak-value" id="streak-value">—</span>
+              <span class="streak-unit">days</span>
+            </div>
+            <div class="streak-progress-wrap">
+              <div class="streak-progress-bar">
+                <div class="streak-progress-fill" id="streak-fill"></div>
+              </div>
+              <span class="streak-goal-label" id="streak-goal-label">— to reward</span>
+            </div>
+            <div class="freeze-badge" id="freeze-badge">
+              <span>🧊</span> <span id="freeze-count">0</span> Streak Freeze available
+            </div>
+          </div>
+
+          <!-- Biometrics Card -->
+          <div class="card bio-card" id="bio-card">
+            <div class="card-label">Biometrics Today</div>
+            <div class="bio-grid">
+              <div class="bio-item">
+                <span class="bio-icon">😴</span>
+                <div>
+                  <div class="bio-value" id="bio-sleep">—</div>
+                  <div class="bio-key">Sleep</div>
+                </div>
+              </div>
+              <div class="bio-item">
+                <span class="bio-icon">🧘</span>
+                <div>
+                  <div class="bio-value" id="bio-cortisol">—</div>
+                  <div class="bio-key">Cortisol</div>
+                </div>
+              </div>
+              <div class="bio-item">
+                <span class="bio-icon">❤️</span>
+                <div>
+                  <div class="bio-value" id="bio-hrv">—</div>
+                  <div class="bio-key">HRV</div>
+                </div>
+              </div>
+              <div class="bio-item">
+                <span class="bio-icon">👣</span>
+                <div>
+                  <div class="bio-value" id="bio-steps">—</div>
+                  <div class="bio-key">Steps</div>
+                </div>
+              </div>
+            </div>
+            <div class="readiness-bar-wrap">
+              <span class="muted" style="font-size:.8rem">Readiness</span>
+              <div class="readiness-bar"><div class="readiness-fill" id="readiness-fill"></div></div>
+              <span class="readiness-val" id="readiness-val">—</span>
+            </div>
+          </div>
+
+          <!-- Budget Card -->
+          <div class="card budget-card" id="budget-card">
+            <div class="card-label">Weekly Budget</div>
+            <div class="budget-ring-wrap">
+              <svg class="budget-ring" viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill budget-ring-fill" id="budget-ring-fill" cx="40" cy="40" r="34" stroke-dasharray="0 214"/>
+              </svg>
+              <div class="budget-center">
+                <span class="budget-value" id="budget-remaining">—</span>
+                <span class="budget-sub">left</span>
+              </div>
+            </div>
+            <p class="muted" id="budget-caption" style="font-size:.8rem;text-align:center"></p>
+          </div>
+
+          <!-- Water Card -->
+          <div class="card water-card" id="water-card">
+            <div class="card-label">Hydration</div>
+            <div class="water-glasses" id="water-glasses"></div>
+            <p class="muted" id="water-caption" style="font-size:.8rem;margin-top:.5rem"></p>
+          </div>
+
+          <!-- Target Card -->
+          <div class="card target-card wide" id="target-card">
+            <div class="card-label">Today's Nutritional Target</div>
+            <p class="target-headline" id="target-headline">Loading...</p>
+            <p class="muted" id="target-sub">Syncing biometric context...</p>
+            <button class="btn btn-primary mt-2" id="show-nudge-btn">View Smart Nudge →</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════ VIEW: FOOD LOG ════════════════════ -->
+      <section class="view hidden" id="view-foodlog">
+        <div class="two-col-layout">
+          <div class="col-main">
+            <div class="card log-summary-card">
+              <div class="macro-overview" id="macro-overview">
+                <div class="macro-item">
+                  <div class="macro-bar-wrap">
+                    <div class="macro-bar-fill" id="bar-calories" style="background:var(--jade)"></div>
+                  </div>
+                  <span class="macro-label">Calories</span>
+                  <span class="macro-val" id="val-calories">—</span>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-bar-wrap">
+                    <div class="macro-bar-fill" id="bar-protein" style="background:var(--amber)"></div>
+                  </div>
+                  <span class="macro-label">Protein</span>
+                  <span class="macro-val" id="val-protein">—</span>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-bar-wrap">
+                    <div class="macro-bar-fill" id="bar-carbs" style="background:var(--coral)"></div>
+                  </div>
+                  <span class="macro-label">Carbs</span>
+                  <span class="macro-val" id="val-carbs">—</span>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-bar-wrap">
+                    <div class="macro-bar-fill" id="bar-fat" style="background:#a78bfa"></div>
+                  </div>
+                  <span class="macro-label">Fat</span>
+                  <span class="macro-val" id="val-fat">—</span>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-bar-wrap">
+                    <div class="macro-bar-fill" id="bar-fiber" style="background:#34d399"></div>
+                  </div>
+                  <span class="macro-label">Fiber</span>
+                  <span class="macro-val" id="val-fiber">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card log-entries-card">
+              <div class="section-header">
+                <h3>Today's Meals</h3>
+                <button class="btn btn-sm btn-primary" id="open-voice-from-log">+ Add Meal</button>
+              </div>
+              <div class="log-entries" id="log-entries"></div>
+            </div>
+          </div>
+
+          <div class="col-side">
+            <div class="card nqs-insight-card">
+              <div class="card-label">NQS Insight</div>
+              <p class="muted" style="font-size:.85rem;line-height:1.6">Your salmon at dinner scored <strong style="color:var(--jade)">91 NQS</strong> — the highest of your logged meals today. Consistency in dinner quality is a great pattern. 💡</p>
+            </div>
+            <div class="card voice-cta-card">
+              <div class="voice-cta-icon">🎙️</div>
+              <h4>Voice Log</h4>
+              <p class="muted" style="font-size:.8rem">Log hands-free while cooking. Just speak what you ate.</p>
+              <button class="btn btn-primary mt-2 full-width" id="open-voice-btn-2">Start Voice Log</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════ VIEW: GROCERY MAP ════════════════════ -->
+      <section class="view hidden" id="view-grocery">
+        <div class="grocery-layout">
+          <div class="card grocery-header-card wide">
+            <div class="grocery-meta">
+              <div>
+                <div class="card-label">Week of <span id="grocery-week">—</span></div>
+                <p class="muted">Optimized to close your nutritional gaps within budget.</p>
+              </div>
+              <div class="budget-pill-wrap">
+                <span class="muted">Budget used</span>
+                <div class="budget-pill">
+                  <div class="budget-pill-fill" id="budget-pill-fill"></div>
+                </div>
+                <span class="budget-pill-label" id="budget-pill-label">—</span>
+              </div>
+            </div>
+          </div>
+          <div class="grocery-list" id="grocery-list"></div>
+          <div class="card swap-card">
+            <div class="card-label">💡 Smart Swap</div>
+            <div id="swap-suggestion"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════ VIEW: SOCIAL FRIDGE ════════════════════ -->
+      <section class="view hidden" id="view-fridge">
+        <div class="fridge-header-row">
+          <div class="card fridge-stat-card">
+            <span class="fridge-stat-val" id="fridge-nearby">—</span>
+            <span class="muted">neighbors nearby</span>
+          </div>
+          <div class="card fridge-stat-card karma-card">
+            <span class="fridge-stat-val karma-val" id="fridge-karma">—</span>
+            <span class="muted">Karma Points</span>
+            <span class="pill pill-jade" id="karma-rank" style="margin-top:.4rem;font-size:.7rem">—</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">Available Near You</h3>
+        <div class="fridge-grid" id="fridge-grid"></div>
+
+        <h3 class="section-title mt-4">My Offerings</h3>
+        <div class="my-offerings-grid" id="my-offerings-grid"></div>
+      </section>
+
+      <!-- ════════════════════ VIEW: BADGES ════════════════════ -->
+      <section class="view hidden" id="view-badges">
+        <h3 class="section-title">Earned Badges</h3>
+        <div class="badges-grid" id="earned-badges-grid"></div>
+
+        <h3 class="section-title mt-4">In Progress</h3>
+        <div class="upcoming-badges-list" id="upcoming-badges-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
